@@ -733,7 +733,12 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   [result setRemoteId:[peripheral.identifier UUIDString]];
   [result setCharacteristicUuid:[descriptor.characteristic.UUID fullUUIDString]];
   [result setServiceUuid:[descriptor.characteristic.service.UUID fullUUIDString]];
-  int value = [descriptor.value intValue];
+    int value = 0;
+//    NSLog(@"这里打印%@",descriptor.value);
+    if(descriptor.value != nil && descriptor.value != NULL){
+        value = [[NSString stringWithFormat:@"%@",descriptor.value] intValue];
+    }
+  
   [result setValue:[NSData dataWithBytes:&value length:sizeof(value)]];
   return result;
 }
